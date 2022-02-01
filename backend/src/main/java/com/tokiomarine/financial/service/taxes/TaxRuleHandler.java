@@ -9,5 +9,5 @@ public interface TaxRuleHandler {
 
 	boolean canHandle(OperationType operationType);
 	
-	BigDecimal calculateTax(BigDecimal value, Calendar transferDate);
+	BigDecimal calculateTax(BigDecimal value, Calendar transferDate, Calendar currentDate);
 }

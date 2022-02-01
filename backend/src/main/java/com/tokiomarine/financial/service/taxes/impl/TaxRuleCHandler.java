@@ -1,5 +1,7 @@
 package com.tokiomarine.financial.service.taxes.impl;
 
+import static com.tokiomarine.financial.utils.CalendarUtils.getCalendarPlusDays;
+
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -7,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.tokiomarine.financial.enums.OperationType;
 import com.tokiomarine.financial.service.taxes.TaxRuleHandler;
-import com.tokiomarine.financial.utils.CalendarUtils;
 
 @Component
 public class TaxRuleCHandler implements TaxRuleHandler {
@@ -18,11 +19,11 @@ public class TaxRuleCHandler implements TaxRuleHandler {
 	}
 
 	@Override
-	public BigDecimal calculateTax(BigDecimal value, Calendar transferDate) {
-		Calendar tenDaysFromToday = CalendarUtils.getCalendarPlusDays(10);
-		Calendar twentyDaysFromToday = CalendarUtils.getCalendarPlusDays(20);
-		Calendar thirtyDaysFromToday = CalendarUtils.getCalendarPlusDays(30);
-		Calendar fortyDaysFromToday = CalendarUtils.getCalendarPlusDays(40);
+	public BigDecimal calculateTax(BigDecimal value, Calendar transferDate, Calendar currentDate) {
+		Calendar tenDaysFromToday = getCalendarPlusDays(10, currentDate);
+		Calendar twentyDaysFromToday = getCalendarPlusDays(20, currentDate);
+		Calendar thirtyDaysFromToday = getCalendarPlusDays(30, currentDate);
+		Calendar fortyDaysFromToday = getCalendarPlusDays(40, currentDate);
 		
 		if (transferDate.after(tenDaysFromToday) && transferDate.before(twentyDaysFromToday))
 			return value.multiply(BigDecimal.valueOf(0.082));

@@ -1,5 +1,7 @@
 package com.tokiomarine.financial.service.transfer.impl;
 
+import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,10 @@ public class TransferServiceImpl implements TransferService {
 		// Mover iteracao do design pattern para facade 
 		for (TaxRuleHandler taxRule : taxRules) {
 			if (taxRule.canHandle(transfer.getOperationType())) {
-				transfer.setTaxes(taxRule.calculateTax(transfer.getValue(), transfer.getSchedulingDate()));
+				BigDecimal value = transfer.getValue();
+				Calendar scheduledDate = transfer.getSchedulingDate();
+				Calendar transferDate = transfer.getTransferDate();
+				transfer.setTaxes(taxRule.calculateTax(value, scheduledDate, transferDate));
 			}			
 		}
 		repository.save(transfer);

@@ -22,7 +22,7 @@ public class TaxRuleDHandler implements TaxRuleHandler {
 	}
 
 	@Override
-	public BigDecimal calculateTax(BigDecimal value, Calendar transferDate) {
+	public BigDecimal calculateTax(BigDecimal value, Calendar transferDate, Calendar currentDate) {
 		return null;
 	}
 
