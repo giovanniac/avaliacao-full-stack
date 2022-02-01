@@ -19,9 +19,9 @@ public class TaxRuleAHandler implements TaxRuleHandler {
 	@Override
 	public BigDecimal calculateTax(BigDecimal value, Calendar transferDate) {
 		if (transferDate.equals(Calendar.getInstance())) {
-			return BigDecimal.valueOf(3).add(value.multiply(BigDecimal.valueOf(1.03)));
+			return BigDecimal.valueOf(3).add(value.multiply(BigDecimal.valueOf(0.03)));
 		}
-		return value;
+		return BigDecimal.ZERO;
 	}
 
 }
