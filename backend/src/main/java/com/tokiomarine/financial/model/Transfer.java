@@ -1,5 +1,6 @@
 package com.tokiomarine.financial.model;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Objects;
 
@@ -27,10 +28,10 @@ public class Transfer {
 	private String toAccount;
 	
 	@Column(name = "TAXES")
-	private Long taxes;
+	private BigDecimal taxes;
 	
 	@Column(name = "VALUE")
-	private Long value;
+	private BigDecimal value;
 	
 	@Column(name = "TRANSFER_DATE")
 	private Calendar transferDate;
@@ -41,7 +42,7 @@ public class Transfer {
 	@Column(name = "OPERATION_TYPE")
 	private OperationType operationType;
 
-	public Transfer(long id, String fromAccount, String toAccount, Long taxes, Long value, Calendar transferDate,
+	public Transfer(long id, String fromAccount, String toAccount, BigDecimal taxes, BigDecimal value, Calendar transferDate,
 			Calendar schedulingDate) {
 		super();
 		this.id = id;
@@ -77,19 +78,19 @@ public class Transfer {
 		this.toAccount = toAccount;
 	}
 
-	public Long getTaxes() {
+	public BigDecimal getTaxes() {
 		return taxes;
 	}
 
-	public void setTaxes(Long taxes) {
+	public void setTaxes(BigDecimal taxes) {
 		this.taxes = taxes;
 	}
 
-	public Long getValue() {
+	public BigDecimal getValue() {
 		return value;
 	}
 
-	public void setValue(Long value) {
+	public void setValue(BigDecimal value) {
 		this.value = value;
 	}
 
