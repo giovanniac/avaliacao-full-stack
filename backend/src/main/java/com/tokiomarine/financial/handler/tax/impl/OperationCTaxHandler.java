@@ -28,8 +28,10 @@ public class OperationCTaxHandler implements OperationTaxHandler {
 		
 		if (transferDate.after(tenDaysFromToday) && transferDate.before(twentyDaysFromToday))
 			return value.multiply(BigDecimal.valueOf(0.082));
+		
 		if (transferDate.after(twentyDaysFromToday) && transferDate.before(thirtyDaysFromToday))
 			return value.multiply(BigDecimal.valueOf(0.069));
+		
 		if (transferDate.after(thirtyDaysFromToday) && transferDate.before(fortyDaysFromToday))
 			return value.multiply(BigDecimal.valueOf(0.047));	
 		

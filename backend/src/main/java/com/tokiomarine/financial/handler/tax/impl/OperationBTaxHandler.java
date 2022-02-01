@@ -22,9 +22,10 @@ public class OperationBTaxHandler implements OperationTaxHandler {
 	@Override
 	public BigDecimal calculateTax(BigDecimal value, Calendar transferDate, Calendar currentDate) {
 		Calendar tenDaysFromToday = getCalendarPlusDays(10, currentDate);
-		if (transferDate.before(tenDaysFromToday)) {
+		
+		if (transferDate.before(tenDaysFromToday))
 			return BigDecimal.valueOf(12);
-		}
+
 		return BigDecimal.ZERO;
 	}
 	

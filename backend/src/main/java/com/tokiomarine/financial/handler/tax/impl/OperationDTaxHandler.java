@@ -27,7 +27,7 @@ public class OperationDTaxHandler implements OperationTaxHandler {
 	@Override
 	public BigDecimal calculateTax(BigDecimal value, Calendar transferDate, Calendar currentDate) {
 		BigDecimal oneThousand = BigDecimal.valueOf(1000);
-		BigDecimal twoThousand = BigDecimal.valueOf(1000);
+		BigDecimal twoThousand = BigDecimal.valueOf(2000);
 		
 		if (value.compareTo(oneThousand) <= 0)
 			return upToOneThousand(value, transferDate, currentDate);
@@ -39,17 +39,18 @@ public class OperationDTaxHandler implements OperationTaxHandler {
 	}
 	
 	private BigDecimal upToOneThousand(BigDecimal value, Calendar transferDate, Calendar currentDate) {
-		if (transferDate.equals(currentDate)) {
+		if (transferDate.equals(currentDate))
 			return BigDecimal.valueOf(3).add(value.multiply(BigDecimal.valueOf(0.03)));
-		}
+		
 		return BigDecimal.ZERO;
 	}
 	
 	private BigDecimal betweenOneAndTwoThousand(BigDecimal value, Calendar transferDate, Calendar currentDate) {
 		Calendar tenDaysFromToday = getCalendarPlusDays(10, currentDate);
-		if (transferDate.before(tenDaysFromToday)) {
+		
+		if (transferDate.before(tenDaysFromToday))
 			return BigDecimal.valueOf(12);
-		}
+		
 		return BigDecimal.ZERO;
 	}
 	
@@ -61,8 +62,10 @@ public class OperationDTaxHandler implements OperationTaxHandler {
 		
 		if (transferDate.after(tenDaysFromToday) && transferDate.before(twentyDaysFromToday))
 			return value.multiply(BigDecimal.valueOf(0.082));
+		
 		if (transferDate.after(twentyDaysFromToday) && transferDate.before(thirtyDaysFromToday))
 			return value.multiply(BigDecimal.valueOf(0.069));
+		
 		if (transferDate.after(thirtyDaysFromToday) && transferDate.before(fortyDaysFromToday))
 			return value.multiply(BigDecimal.valueOf(0.047));	
 		
