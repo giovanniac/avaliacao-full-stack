@@ -1,5 +1,6 @@
-package com.tokiomarine.financial.service.taxes.impl;
+package com.tokiomarine.financial.handler.tax.impl;
 
+import static com.tokiomarine.financial.enums.OperationType.B;
 import static com.tokiomarine.financial.utils.CalendarUtils.getCalendarPlusDays;
 
 import java.math.BigDecimal;
@@ -8,14 +9,14 @@ import java.util.Calendar;
 import org.springframework.stereotype.Component;
 
 import com.tokiomarine.financial.enums.OperationType;
-import com.tokiomarine.financial.service.taxes.TaxRuleHandler;
+import com.tokiomarine.financial.handler.tax.OperationTaxHandler;
 
 @Component
-public class TaxRuleBHandler implements TaxRuleHandler {
+public class OperationBTaxHandler implements OperationTaxHandler {
 
 	@Override
 	public boolean canHandle(OperationType operationType) {
-		return operationType.equals(OperationType.B);
+		return operationType.equals(B);
 	}
 
 	@Override
