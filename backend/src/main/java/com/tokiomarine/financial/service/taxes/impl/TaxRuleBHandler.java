@@ -21,9 +21,9 @@ public class TaxRuleBHandler implements TaxRuleHandler {
 	public BigDecimal calculateTax(BigDecimal value, Calendar transferDate) {
 		Calendar tenDaysFromToday = CalendarUtils.getCalendarPlusDays(10);
 		if (transferDate.before(tenDaysFromToday)) {
-			return value.add(BigDecimal.valueOf(12));
+			return BigDecimal.valueOf(12);
 		}
-		return value;
+		return BigDecimal.ZERO;
 	}
 	
 

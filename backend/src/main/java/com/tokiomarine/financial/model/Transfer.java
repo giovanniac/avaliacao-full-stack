@@ -42,18 +42,6 @@ public class Transfer {
 	@Column(name = "OPERATION_TYPE")
 	private OperationType operationType;
 
-	public Transfer(long id, String fromAccount, String toAccount, BigDecimal taxes, BigDecimal value, Calendar transferDate,
-			Calendar schedulingDate) {
-		super();
-		this.id = id;
-		this.fromAccount = fromAccount;
-		this.toAccount = toAccount;
-		this.taxes = taxes;
-		this.value = value;
-		this.transferDate = transferDate;
-		this.schedulingDate = schedulingDate;
-	}
-
 	public long getId() {
 		return id;
 	}
@@ -109,10 +97,18 @@ public class Transfer {
 	public void setSchedulingDate(Calendar schedulingDate) {
 		this.schedulingDate = schedulingDate;
 	}
-	
+
+	public OperationType getOperationType() {
+		return operationType;
+	}
+
+	public void setOperationType(OperationType operationType) {
+		this.operationType = operationType;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(fromAccount, id, schedulingDate, taxes, toAccount, transferDate, value);
+		return Objects.hash(fromAccount, id, operationType, schedulingDate, taxes, toAccount, transferDate, value);
 	}
 
 	@Override
@@ -124,10 +120,11 @@ public class Transfer {
 		if (getClass() != obj.getClass())
 			return false;
 		Transfer other = (Transfer) obj;
-		return Objects.equals(fromAccount, other.fromAccount) && id == other.id
+		return Objects.equals(fromAccount, other.fromAccount) && id == other.id && operationType == other.operationType
 				&& Objects.equals(schedulingDate, other.schedulingDate) && Objects.equals(taxes, other.taxes)
 				&& Objects.equals(toAccount, other.toAccount) && Objects.equals(transferDate, other.transferDate)
 				&& Objects.equals(value, other.value);
 	}
+
 	
 }

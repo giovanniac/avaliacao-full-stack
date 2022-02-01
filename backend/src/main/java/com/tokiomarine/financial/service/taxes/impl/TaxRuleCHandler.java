@@ -25,13 +25,13 @@ public class TaxRuleCHandler implements TaxRuleHandler {
 		Calendar fortyDaysFromToday = CalendarUtils.getCalendarPlusDays(40);
 		
 		if (transferDate.after(tenDaysFromToday) && transferDate.before(twentyDaysFromToday))
-			return value.multiply(BigDecimal.valueOf(1.082));
+			return value.multiply(BigDecimal.valueOf(0.082));
 		if (transferDate.after(twentyDaysFromToday) && transferDate.before(thirtyDaysFromToday))
-			return value.multiply(BigDecimal.valueOf(1.069));
+			return value.multiply(BigDecimal.valueOf(0.069));
 		if (transferDate.after(thirtyDaysFromToday) && transferDate.before(fortyDaysFromToday))
-			return value.multiply(BigDecimal.valueOf(1.047));	
+			return value.multiply(BigDecimal.valueOf(0.047));	
 		
-		return value.multiply(BigDecimal.valueOf(1.017));
+		return value.multiply(BigDecimal.valueOf(0.017));
 	}
 
 }

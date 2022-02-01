@@ -1,6 +1,8 @@
 package com.tokiomarine.financial.enums;
 
-public enum OperationType {
+import java.io.Serializable;
+
+public enum OperationType implements Serializable {
 
 	A("A"), B("B"), C("C"), D("D");
 
