@@ -2,7 +2,7 @@ package com.tokiomarine.financial.service.taxes;
 
 import com.tokiomarine.financial.enums.OperationType;
 
-public interface TaxRule {
+public interface TaxRuleHandler {
 
 	boolean canHandle(OperationType operationType);
 	

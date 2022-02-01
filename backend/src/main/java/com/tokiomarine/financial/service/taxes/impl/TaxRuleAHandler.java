@@ -1,9 +1,12 @@
 package com.tokiomarine.financial.service.taxes.impl;
 
-import com.tokiomarine.financial.enums.OperationType;
-import com.tokiomarine.financial.service.taxes.TaxRule;
+import org.springframework.stereotype.Component;
 
-public class TaxRuleA implements TaxRule {
+import com.tokiomarine.financial.enums.OperationType;
+import com.tokiomarine.financial.service.taxes.TaxRuleHandler;
+
+@Component
+public class TaxRuleAHandler implements TaxRuleHandler {
 
 	@Override
 	public boolean canHandle(OperationType operationType) {
