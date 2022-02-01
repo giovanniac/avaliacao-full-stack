@@ -1,13 +1,13 @@
 package com.tokiomarine.financial.service.transfer.impl;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tokiomarine.financial.handler.tax.OperationTaxHandler;
+import com.tokiomarine.financial.enums.OperationType;
+import com.tokiomarine.financial.exception.InvalidInputException;
+import com.tokiomarine.financial.facade.OperationTaxFacade;
 import com.tokiomarine.financial.model.Transfer;
 import com.tokiomarine.financial.repository.transfer.TransferRepository;
 import com.tokiomarine.financial.service.transfer.TransferService;
@@ -16,22 +16,20 @@ import com.tokiomarine.financial.service.transfer.TransferService;
 public class TransferServiceImpl implements TransferService {
 	
 	@Autowired 
-	List<OperationTaxHandler> taxRules;
+	OperationTaxFacade operationTaxFacade;
 
 	@Autowired 
 	TransferRepository repository;
 	
 	@Override
-	public void save(Transfer transfer) {
-		// Mover iteracao do design pattern para facade 
-		for (OperationTaxHandler taxRule : taxRules) {
-			if (taxRule.canHandle(transfer.getOperationType())) {
-				BigDecimal value = transfer.getValue();
-				Calendar scheduledDate = transfer.getSchedulingDate();
-				Calendar transferDate = transfer.getTransferDate();
-				transfer.setTaxes(taxRule.calculateTax(value, scheduledDate, transferDate));
-			}			
-		}
+	public void save(Transfer transfer, String operationType) throws InvalidInputException {
+		OperationType operationTypeEnum = OperationType.forName(operationType);
+		
+		if (operationTypeEnum == null)
+			throw new InvalidInputException("Invalid operation type");
+		
+		transfer.setOperationType(operationTypeEnum);
+		transfer.setTaxes(operationTaxFacade.calculateOperationTax(transfer));
 		repository.save(transfer);
 	}
 	

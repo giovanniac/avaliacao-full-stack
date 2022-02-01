@@ -2,6 +2,7 @@ package com.tokiomarine.financial.handler.tax.impl;
 
 import static com.tokiomarine.financial.enums.OperationType.B;
 import static com.tokiomarine.financial.utils.CalendarUtils.getCalendarPlusDays;
+import static java.math.BigDecimal.ZERO;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -26,7 +27,7 @@ public class OperationBTaxHandler implements OperationTaxHandler {
 		if (transferDate.before(tenDaysFromToday))
 			return BigDecimal.valueOf(12);
 
-		return BigDecimal.ZERO;
+		return ZERO;
 	}
 	
 

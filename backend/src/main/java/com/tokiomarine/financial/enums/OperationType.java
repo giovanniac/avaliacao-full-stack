@@ -15,4 +15,13 @@ public enum OperationType implements Serializable {
 	public String getCode() {
 		return code;
 	}
+
+	public static OperationType forName(String name) {
+		for (OperationType value : OperationType.values()) {
+			if (value.name().equals(name)) {
+				return value;
+			}
+		}
+		return null;
+	}
 }

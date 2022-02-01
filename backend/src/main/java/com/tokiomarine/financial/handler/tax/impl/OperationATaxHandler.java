@@ -1,6 +1,7 @@
 package com.tokiomarine.financial.handler.tax.impl;
 
 import static com.tokiomarine.financial.enums.OperationType.A;
+import static java.math.BigDecimal.ZERO;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -23,7 +24,7 @@ public class OperationATaxHandler implements OperationTaxHandler {
 		if (transferDate.equals(currentDate))
 			return BigDecimal.valueOf(3).add(value.multiply(BigDecimal.valueOf(0.03)));
 		
-		return BigDecimal.ZERO;
+		return ZERO;
 	}
 
 }
