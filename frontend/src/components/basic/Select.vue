@@ -1,35 +1,31 @@
 <template>
-  <input
-    :type="type"
-    :placeholder="label"
-    class="custom-input"
+  <select
+    class="custom-selector"
     @input="onInputChange($event.target.value)"
-  />
+  >
+    <option v-for="option in options" :key="option.name" value="option.value">{{option.name}}</option>
+  </select>
 </template>
 
 <script>
 export default {
-  name: 'Input',
+  name: 'Select',
   props: {
-    label: {
-      type: String,
+    options: {
+      type: Array,
       required: true
-    },
-    type: {
-      type: String,
-      default: ''
     }
   },
   methods: {
     onInputChange (inputValue) {
-      this.$emit('input', inputValue)
+      this.$emit('change', inputValue)
     }
   }
 }
 </script>
 
 <style scoped>
-.custom-input{
+.custom-selector{
    font-weight: bold;
    min-height: 35px;
    padding: 6px 15px;

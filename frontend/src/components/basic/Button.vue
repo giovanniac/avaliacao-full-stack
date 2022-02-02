@@ -22,7 +22,6 @@ export default {
 <style scoped>
 .btn {
   font-weight: bold;
-  width: 230px;
   margin: 0 35px 20px ;
   height: 45px;
   padding: 6px 15px;
