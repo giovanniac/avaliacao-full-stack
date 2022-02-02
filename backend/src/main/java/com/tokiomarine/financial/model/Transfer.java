@@ -16,7 +16,7 @@ import com.tokiomarine.financial.enums.OperationType;
 @Entity
 @Table(name = "TRANSFER")
 public class Transfer {
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
@@ -125,6 +125,14 @@ public class Transfer {
 				&& Objects.equals(toAccount, other.toAccount) && Objects.equals(transferDate, other.transferDate)
 				&& Objects.equals(value, other.value);
 	}
+	
+	@Override
+	public String toString() {
+		return "Transfer [id=" + id + ", fromAccount=" + fromAccount + ", toAccount=" + toAccount + ", taxes=" + taxes
+				+ ", value=" + value + ", transferDate=" + transferDate + ", schedulingDate=" + schedulingDate
+				+ ", operationType=" + operationType + "]";
+	}
+
 
 	
 }

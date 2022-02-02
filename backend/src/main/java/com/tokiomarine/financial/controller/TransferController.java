@@ -24,7 +24,7 @@ public class TransferController {
 	@Autowired
 	TransferMapper transferMapper;
 	
-	@PostMapping("")
+	@PostMapping
 	public ResponseEntity<?> create(@RequestBody SaveTransferVO transfer) {
 		try {
 			service.save(transferMapper.fromSendTransferVO(transfer), transfer.getOperationType());
@@ -36,7 +36,7 @@ public class TransferController {
 		}
 	}
 	
-	@GetMapping("")
+	@GetMapping
 	public ResponseEntity<?> getAll() {
 		try {
 			return new ResponseEntity<>(service.getAll(), HttpStatus.OK);
