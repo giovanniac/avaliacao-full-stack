@@ -1,4 +1,4 @@
-## Rodar o Projeto
+## Descrição do Projeto
 O projeto utiliza Vue (Vuex, VueRouter) e Axios no frontend e Spring Boot, Spring Data e banco de dados H2.
 
 Para iniciar o Backend, importe o projeto (Maven) utilizando seu IDE preferido.
@@ -13,10 +13,10 @@ O backend, feito utilizando Spring Boot, aplica uma arquitetura em três camadas
  - **GET** *"/transfer"* -> Busca todas as transferência
  -  **POST** *"/transfer"* -> Realiza uma nova transferência
 
-Para aplicar as regras de taxação, foi utilizado uma estrutura inspirada no design pattern [*Chain of Responsability*](https://refactoring.guru/pt-br/design-patterns/chain-of-responsibility), onde classes implementam a interface nomeada *OperationTaxHandler*, que possui dois métodos:
+Para aplicar as regras de taxação, foi utilizado uma estrutura inspirada no design pattern [*Chain of Responsability*](https://refactoring.guru/pt-br/design-patterns/chain-of-responsibility), onde classes implementam a interface nomeada *OperationTaxHandler* e os dois métodos:
 
  - **canHandle**, utilizado para indicar que a classe sabe lidar com algum tipo de operação
- -  **calculateTax**, onde é implementado o cálculo da taxa.
+ - **calculateTax**, onde é implementado o cálculo da taxa.
 
 Esta estrutura é exposta via um *facade* chamado **OperationTaxFacade**, que possuí somente o método **calculateOperationTax**.  Isso facilita a criação de novos tipos de operação e cálculos de taxa respectivos, enquanto o facade esconde detalhes da implementação de quem utiliza esta estrutura.
 
