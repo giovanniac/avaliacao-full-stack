@@ -1,5 +1,7 @@
 package com.tokiomarine.financial.service.transfer.impl;
 
+import static java.math.BigDecimal.ZERO;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +27,7 @@ public class TransferServiceImpl implements TransferService {
 	public void save(Transfer transfer, String operationType) throws InvalidInputException {
 		OperationType operationTypeEnum = OperationType.forName(operationType);
 		
-		if (operationTypeEnum == null)
-			throw new InvalidInputException("Invalid operation type");
+		validateTransfer(transfer, operationTypeEnum);
 		
 		transfer.setOperationType(operationTypeEnum);
 		transfer.setTaxes(operationTaxFacade.calculateOperationTax(transfer));
@@ -36,6 +37,23 @@ public class TransferServiceImpl implements TransferService {
 	@Override
 	public List<Transfer> getAll() {
 		return repository.findAll();
+	}
+	
+	private void validateTransfer(Transfer transfer, OperationType operationTypeEnum) throws InvalidInputException {
+		if (operationTypeEnum == null)
+			throw new InvalidInputException("Invalid operation type");
+		
+		if (transfer.getFromAccount() == null)
+			throw new InvalidInputException("Invalid origin account");
+		
+		if (transfer.getToAccount() == null)
+			throw new InvalidInputException("Invalid destiny account");
+		
+		if (transfer.getTransferDate() == null)
+			throw new InvalidInputException("Invalid transfer date");
+		
+		if (transfer.getValue() == null || transfer.getValue() == ZERO)
+			throw new InvalidInputException("Invalid transfer value");
 	}
 
 }

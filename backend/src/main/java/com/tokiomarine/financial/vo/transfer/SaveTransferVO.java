@@ -11,9 +11,7 @@ public class SaveTransferVO {
 	private String toAccount;
 
 	private BigDecimal value;
-
-	private Calendar transferDate;
-
+	
 	private Calendar schedulingDate;
 
 	private String operationType;
@@ -42,14 +40,6 @@ public class SaveTransferVO {
 		this.value = value;
 	}
 
-	public Calendar getTransferDate() {
-		return transferDate;
-	}
-
-	public void setTransferDate(Calendar transferDate) {
-		this.transferDate = transferDate;
-	}
-
 	public Calendar getSchedulingDate() {
 		return schedulingDate;
 	}
@@ -68,7 +58,7 @@ public class SaveTransferVO {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fromAccount, operationType, schedulingDate, toAccount, transferDate, value);
+		return Objects.hash(fromAccount, operationType, schedulingDate, toAccount, value);
 	}
 
 	@Override
@@ -82,7 +72,8 @@ public class SaveTransferVO {
 		SaveTransferVO other = (SaveTransferVO) obj;
 		return Objects.equals(fromAccount, other.fromAccount) && Objects.equals(operationType, other.operationType)
 				&& Objects.equals(schedulingDate, other.schedulingDate) && Objects.equals(toAccount, other.toAccount)
-				&& Objects.equals(transferDate, other.transferDate) && Objects.equals(value, other.value);
+				&& Objects.equals(value, other.value);
 	}
+
 	 
 }

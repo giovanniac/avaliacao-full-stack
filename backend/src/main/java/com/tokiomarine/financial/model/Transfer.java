@@ -34,7 +34,7 @@ public class Transfer {
 	private BigDecimal value;
 	
 	@Column(name = "TRANSFER_DATE")
-	private Calendar transferDate;
+	private Calendar transferDate = Calendar.getInstance();
 	
 	@Column(name = "SCHEDULING_DATE")
 	private Calendar schedulingDate;

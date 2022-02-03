@@ -31,7 +31,7 @@ public class TransferServiceImplTest {
 	private TransferServiceImpl service;
 
 	@Test
-	void shouldNotCalculateTaxes() {
+	void shouldThrowsInvalidOperation() {
 		Assertions.assertThrows(InvalidInputException.class, () -> {
 			Calendar schedulingDate = Calendar.getInstance();
 			Calendar transferDate = schedulingDate;
@@ -44,21 +44,34 @@ public class TransferServiceImplTest {
 			service.save(transfer, "NOT_EXISTENT");
 		});
 	}
+	
+	@Test
+	void shouldThrowsInvalidValue() {
+		Assertions.assertThrows(InvalidInputException.class, () -> {
+			Calendar schedulingDate = Calendar.getInstance();
+			Calendar transferDate = schedulingDate;
 
-//	@Test
-//	void shouldCalculateOperationATax() throws Exception {
-//		Calendar schedulingDate = Calendar.getInstance();
-//		Calendar transferDate = schedulingDate;
-//		BigDecimal value = BigDecimal.valueOf(100);
-//		BigDecimal calculatedTaxes = BigDecimal.valueOf(3).add(value.multiply(BigDecimal.valueOf(0.03)));
-//
-//		Transfer transfer = new Transfer();
-//		transfer.setValue(BigDecimal.valueOf(100));
-//		transfer.setSchedulingDate(schedulingDate);
-//		transfer.setTransferDate(transferDate);
-//
-//		service.save(transfer, "A");
-//		assertEquals(calculatedTaxes, transfer.getTaxes());
-//	}
+			Transfer transfer = new Transfer();
+			transfer.setValue(BigDecimal.ZERO);
+			transfer.setSchedulingDate(schedulingDate);
+			transfer.setTransferDate(transferDate);
+
+			service.save(transfer, "A");
+		});
+	}
+	
+	@Test
+	void shouldThrowsTransferDate() {
+		Assertions.assertThrows(InvalidInputException.class, () -> {
+			Calendar schedulingDate = Calendar.getInstance();
+
+			Transfer transfer = new Transfer();
+			transfer.setValue(BigDecimal.valueOf(100));
+			transfer.setTransferDate(null);
+			transfer.setSchedulingDate(schedulingDate);
+
+			service.save(transfer, "A");
+		});
+	}
 
 }
