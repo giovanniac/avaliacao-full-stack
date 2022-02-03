@@ -17,7 +17,6 @@ import Input from '@/components/basic/Input.vue'
 import Card from '@/components/basic/Card.vue'
 import Button from '@/components/basic/Button.vue'
 import Select from '@/components/basic/Select.vue'
-import api from '@/api.js'
 
 export default {
   name: 'Home',
@@ -58,10 +57,7 @@ export default {
   },
   methods: {
     sendTransfer () {
-      api
-        .post('/transfer', this.model)
-        .then(() => { console.log('Transferencia') })
-        .catch((error) => { console.log(error) })
+      this.$store.dispatch('Transfer/sendTransfer', this.model)
     }
   }
 }

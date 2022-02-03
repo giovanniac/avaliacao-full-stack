@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import api from '@/api.js'
 import Card from '@/components/basic/Card.vue'
 
 export default {
@@ -19,11 +18,9 @@ export default {
     Card
   },
   methods: {
-    getTransfers () {
-      api
-        .get('/transfer', this.model)
-        .then((data) => { this.dataset = data })
-        .catch((error) => { console.log(error) })
+    async getTransfers () {
+      await this.$store.dispatch('Transfer/getTransfers')
+      return this.$store.getters['Transfer/getTransfers']
     }
   },
   mounted () {
