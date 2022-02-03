@@ -1,7 +1,5 @@
 package com.tokiomarine.financial.transfer;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -40,6 +38,8 @@ public class TransferServiceImplTest {
 			transfer.setValue(BigDecimal.valueOf(100));
 			transfer.setSchedulingDate(schedulingDate);
 			transfer.setTransferDate(transferDate);
+			transfer.setFromAccount("12312");
+			transfer.setToAccount("12312");
 
 			service.save(transfer, "NOT_EXISTENT");
 		});
@@ -55,13 +55,15 @@ public class TransferServiceImplTest {
 			transfer.setValue(BigDecimal.ZERO);
 			transfer.setSchedulingDate(schedulingDate);
 			transfer.setTransferDate(transferDate);
+			transfer.setFromAccount("12312");
+			transfer.setToAccount("12312");
 
 			service.save(transfer, "A");
 		});
 	}
 	
 	@Test
-	void shouldThrowsTransferDate() {
+	void shouldThrowsInvalidTransferDate() {
 		Assertions.assertThrows(InvalidInputException.class, () -> {
 			Calendar schedulingDate = Calendar.getInstance();
 
@@ -69,6 +71,42 @@ public class TransferServiceImplTest {
 			transfer.setValue(BigDecimal.valueOf(100));
 			transfer.setTransferDate(null);
 			transfer.setSchedulingDate(schedulingDate);
+			transfer.setFromAccount("12312");
+			transfer.setToAccount("12312");
+
+			service.save(transfer, "A");
+		});
+	}
+	
+	@Test
+	void shouldThrowsInvalidToAccount() {
+		Assertions.assertThrows(InvalidInputException.class, () -> {
+			Calendar schedulingDate = Calendar.getInstance();
+			Calendar transferDate = schedulingDate;
+
+			Transfer transfer = new Transfer();
+			transfer.setValue(BigDecimal.valueOf(100));
+			transfer.setSchedulingDate(schedulingDate);
+			transfer.setTransferDate(transferDate);
+			transfer.setFromAccount("12312");
+			transfer.setToAccount(null);
+
+			service.save(transfer, "A");
+		});
+	}
+	
+	@Test
+	void shouldThrowsInvalidFromAccount() {
+		Assertions.assertThrows(InvalidInputException.class, () -> {
+			Calendar schedulingDate = Calendar.getInstance();
+			Calendar transferDate = schedulingDate;
+
+			Transfer transfer = new Transfer();
+			transfer.setValue(BigDecimal.valueOf(100));
+			transfer.setSchedulingDate(schedulingDate);
+			transfer.setTransferDate(transferDate);
+			transfer.setFromAccount(null);
+			transfer.setToAccount("12312");
 
 			service.save(transfer, "A");
 		});
