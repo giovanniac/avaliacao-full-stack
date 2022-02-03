@@ -5,7 +5,7 @@
       <Input class="row" label="Conta Origem" type="number" max="999999" v-model="model.fromAccount" />
       <Input class="row" label="Conta Destino" type="number" max="999999" v-model="model.toAccount" />
       <Input class="row" label="Valor" type="text" v-model="model.value" />
-      <Input class="row" label="Data" type="datetime-local" v-model="model.schedulingDate" />
+      <Input class="row" label="Data" type="datetime-local" v-model="model.transferDate" />
       <Select class="row" label="Tipo de Operação" :options="operations" v-model="model.operationType"/>
       <Button class="row" label="Enviar" @click="sendTransfer"/>
     </Card>
@@ -26,7 +26,7 @@ export default {
         fromAccount: '',
         toAccount: '',
         value: '',
-        schedulingDate: '',
+        transferDate: '',
         operationType: 'A'
       },
       operations: [
@@ -56,8 +56,15 @@ export default {
     Select
   },
   methods: {
-    sendTransfer () {
-      this.$store.dispatch('Transfer/sendTransfer', this.model)
+    async sendTransfer () {
+      await this.$store.dispatch('Transfer/sendTransfer', this.model)
+      this.model = {
+        fromAccount: '',
+        toAccount: '',
+        value: '',
+        scheduleDate: '',
+        operationType: ''
+      }
     }
   }
 }

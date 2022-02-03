@@ -1,13 +1,21 @@
 <template>
   <table>
-    <tr>
-      <td
-        v-for="data in dataset" :key="data.name"
+    <thead>
+      <th
+        v-for="(item, key) in dataset[0]" :key="key"
       >
-        Company
-      </td>
-    </tr>
-
+        {{ headers[key] }}
+      </th>
+    </thead>
+    <tbody>
+      <tr v-for="(datasetItem, datasetKey) in dataset" :key="datasetKey">
+        <td
+          v-for="(value, name, index) in headers" :key="index"
+        >
+          {{datasetItem[name]}}
+        </td>
+      </tr>
+    </tbody>
   </table>
 </template>
 
@@ -23,10 +31,110 @@ export default {
       label: Array,
       required: true
     }
-  },  
+  }
 }
 </script>
 
-<style>
+<style scope>
+table {
+  width: 100%;
+  border-spacing: 0;
+  border-radius: 1em;
+  overflow: hidden;
+}
 
+thead {
+ visibility: hidden;
+ position: absolute;
+ width: 0;
+ height: 0;
+}
+
+th {
+  background: #23ada4;
+  color: #fff;
+}
+
+td:nth-child(1) {
+  background: #23ada4;
+  color: #fff;
+  border-radius: 1em 1em 0 0;
+}
+
+th, td {
+  padding: 1em;
+}
+
+tr, td {
+  display: block;
+}
+
+td {
+  position: relative;
+}
+
+td::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 0;
+  padding-left: 1em;
+  font-weight: 600;
+  font-size: .9em;
+  text-transform: uppercase;
+}
+
+tr {
+  margin-bottom: 1.5em;
+  border: 1px solid #ddd;
+  border-radius: 1em;
+  text-align: right;
+}
+
+tr:last-of-type {
+  margin-bottom: 0;
+}
+
+td:nth-child(n+2):nth-child(odd) {
+  background-color: #ddd;
+}
+
+@media only screen and (min-width: 768px) {
+  table {
+    max-width: 1200px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+  }
+  thead {
+    visibility: visible;
+    position: relative;
+  }
+  th {
+    text-align: left;
+    text-transform: uppercase;
+    font-size: .9em;
+  }
+  tr {
+    display: table-row;
+    border: none;
+    border-radius: 0;
+    text-align: left;
+  }
+  tr:nth-child(even) {
+  background-color: #ddd;
+  }
+  td {
+    display: table-cell;
+  }
+  td::before {
+    content: none;
+  }
+  td:nth-child(1) {
+    background: transparent;
+    color: #444;
+    border-radius: 0;
+  }
+  td:nth-child(n+2):nth-child(odd) {
+    background-color: transparent;
+  }
+}
 </style>

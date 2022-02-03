@@ -1,44 +1,43 @@
 <template>
-  <Card class="card">
-    {{dataset}}
-  </Card>
+  <Table :dataset="dataset" :headers="headers" />
 </template>
 
 <script>
-import Card from '@/components/basic/Card.vue'
+import Table from '@/components/Table.vue'
 
 export default {
   name: 'History',
   data: () => {
     return {
-      dataset: {}
+      dataset: [],
+      headers: {
+        id: 'Id',
+        fromAccount: 'Conta Origem',
+        toAccount: 'Conta Destino',
+        taxes: 'Taxa',
+        value: 'Valor',
+        scheduleDate: 'Data Agendada',
+        transferDate: 'Data de Transferência',
+        operationType: 'Tipo de Operação'
+      }
     }
   },
   components: {
-    Card
+    Table
   },
   methods: {
     async getTransfers () {
       await this.$store.dispatch('Transfer/getTransfers')
-      return this.$store.getters['Transfer/getTransfers']
+      this.dataset = this.$store.getters['Transfer/getTransfers']
     }
   },
-  mounted () {
+  created () {
     this.getTransfers()
   }
 }
 </script>
 
 <style scoped>
-.card {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-content: stretch;
-    align-items: center;
-    width: 300px;
-}
 .row {
   margin: 10px;
 }

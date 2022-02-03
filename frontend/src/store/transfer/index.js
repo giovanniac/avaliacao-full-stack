@@ -22,7 +22,7 @@ const actions = {
       .catch((error) => { console.log(error) })
   },
   getTransfers (context, payload) {
-    const setData = (data) => context.commit('setTransfers', data)
+    const setData = (data) => context.commit('setTransfers', data.data)
     api
       .get('/transfer')
       .then(setData)
