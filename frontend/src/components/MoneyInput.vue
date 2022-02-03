@@ -1,38 +1,60 @@
 <template>
   <div class="container">
-    {{label}}:
-    <select
-      class="custom-selector"
-      @change="onInputChange($event.target.value)"
-    >
-      <option v-for="option in options" :key="option.name" :value="option.value">{{option.name}}</option>
-    </select>
+    {{label}}
+    <input
+      :type="type"
+      class="custom-input"
+      @input="onInputChange($event.target.value)"
+      v-model.lazy="model"
+      v-money="money"
+    />
   </div>
 </template>
 
 <script>
+import { VMoney } from 'v-money'
+
 export default {
-  name: 'Select',
+  name: 'MoneyInput',
+  data: () => {
+    return {
+      model: '',
+      money: {
+        decimal: ',',
+        thousands: '.',
+        prefix: 'R$ ',
+        precision: 2,
+        masked: false
+      }
+    }
+  },
   props: {
     label: {
       type: String,
       required: true
     },
-    options: {
-      type: Array,
-      required: true
+    mask: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    type: {
+      type: String,
+      required: false,
+      default: ''
     }
   },
   methods: {
     onInputChange (inputValue) {
       this.$emit('input', inputValue)
     }
-  }
+  },
+  directives: { money: VMoney }
 }
 </script>
 
 <style scoped>
-.custom-selector{
+.custom-input{
    font-weight: bold;
    min-height: 35px;
    padding: 6px 15px;

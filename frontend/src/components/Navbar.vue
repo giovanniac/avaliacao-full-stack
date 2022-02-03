@@ -1,7 +1,7 @@
 <template>
 <div class="nav-wrapper">
   <nav class="navbar">
-    Logo
+    <h2>Transfer App</h2>
     <div class="menu-toggle" :class="{'is-active': openMenu}" id="mobile-menu" @click="openMenu = !openMenu">
       <span class="bar"></span>
       <span class="bar"></span>
@@ -34,6 +34,10 @@ export default {
 </script>
 
 <style>
+h2 {
+  color: white;
+  margin-left: 12px;
+}
 .nav-wrapper {
   width: 100%;
   position: sticky;

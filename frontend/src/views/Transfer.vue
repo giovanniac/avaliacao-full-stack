@@ -2,12 +2,41 @@
   <div class="home">
     <Card class="card">
       <span class="row"> <b>Transferêcia</b> </span>
-      <Input class="row" label="Conta Origem" type="number" max="999999" v-model="model.fromAccount" />
-      <Input class="row" label="Conta Destino" type="number" max="999999" v-model="model.toAccount" />
-      <Input class="row" label="Valor" type="text" v-model="model.value" />
-      <Input class="row" label="Data" type="datetime-local" v-model="model.transferDate" />
-      <Select class="row" label="Tipo de Operação" :options="operations" v-model="model.operationType"/>
-      <Button class="row" label="Enviar" @click="sendTransfer"/>
+      <Input
+        class="fullsize-row"
+        label="Conta Origem"
+        mask="######"
+        v-model="model.fromAccount"
+      />
+      <Input
+        class="fullsize-row"
+        label="Conta Destino"
+        type="number"
+        mask="######"
+        v-model="model.toAccount"
+      />
+      <MoneyInput
+        class="fullsize-row"
+        label="Valor"
+        type="text"
+        v-model="model.value"
+      />
+      <Input
+        class="fullsize-row"
+        label="Data"
+        type="date"
+        v-model="model.transferDate"
+      />
+      <Select
+        class="fullsize-row"
+        label="Tipo de Operação"
+        :options="operations"
+        v-model="model.operationType"
+      />
+      <div class="row">
+        <Button label="Cotar" @click="getCotation"/>
+        <Button label="Enviar" @click="sendTransfer"/>
+      </div>
     </Card>
   </div>
 </template>
@@ -17,6 +46,7 @@ import Input from '@/components/basic/Input.vue'
 import Card from '@/components/basic/Card.vue'
 import Button from '@/components/basic/Button.vue'
 import Select from '@/components/basic/Select.vue'
+import MoneyInput from '@/components/MoneyInput.vue'
 
 export default {
   name: 'Home',
@@ -29,6 +59,7 @@ export default {
         transferDate: '',
         operationType: 'A'
       },
+      cotation: {},
       operations: [
         {
           name: 'A',
@@ -53,7 +84,8 @@ export default {
     Input,
     Card,
     Button,
-    Select
+    Select,
+    MoneyInput
   },
   methods: {
     async sendTransfer () {
@@ -65,6 +97,10 @@ export default {
         scheduleDate: '',
         operationType: ''
       }
+    },
+    async getCotation () {
+      await this.$store.dispatch('Transfer/getCotation', this.model)
+      this.cotation = this.$store.getters['Transfer/getCotation']
     }
   }
 }
@@ -80,12 +116,16 @@ export default {
     align-items: center;
     width: 300px;
 }
+.fullsize-row {
+  margin: 10px;
+  width: 250px;
+}
 .row {
   margin: 10px;
 }
 span {
-    font-weight: bold;
-    font-size: 20px;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 </style>
