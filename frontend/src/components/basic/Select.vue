@@ -4,6 +4,7 @@
     <select
       class="custom-selector"
       @change="onInputChange($event.target.value)"
+      :value="value"
     >
       <option v-for="option in options" :key="option.name" :value="option.value">{{option.name}}</option>
     </select>
@@ -14,6 +15,10 @@
 export default {
   name: 'Select',
   props: {
+    value: {
+      type: String,
+      required: true
+    },
     label: {
       type: String,
       required: true

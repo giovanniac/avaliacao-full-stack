@@ -6,7 +6,7 @@
       class="custom-input"
       @input="onInputChange($event.target.value)"
       v-mask="mask"
-      v-model="model"
+      :value="value"
     />
   </div>
 </template>
@@ -14,12 +14,11 @@
 <script>
 export default {
   name: 'Input',
-  data: () => {
-    return {
-      model: ''
-    }
-  },
   props: {
+    value: {
+      type: String,
+      required: true
+    },
     label: {
       type: String,
       required: true

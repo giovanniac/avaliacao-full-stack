@@ -5,7 +5,7 @@
       :type="type"
       class="custom-input"
       @input="onInputChange($event.target.value)"
-      v-model.lazy="model"
+      :value="value"
       v-money="money"
     />
   </div>
@@ -18,7 +18,6 @@ export default {
   name: 'MoneyInput',
   data: () => {
     return {
-      model: '',
       money: {
         decimal: ',',
         thousands: '.',
@@ -29,6 +28,10 @@ export default {
     }
   },
   props: {
+    value: {
+      type: String,
+      required: true
+    },
     label: {
       type: String,
       required: true

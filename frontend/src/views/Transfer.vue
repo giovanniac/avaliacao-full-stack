@@ -95,7 +95,7 @@ export default {
         toAccount: '',
         value: '',
         scheduleDate: '',
-        operationType: ''
+        operationType: 'A'
       }
     },
     async getCotation () {
