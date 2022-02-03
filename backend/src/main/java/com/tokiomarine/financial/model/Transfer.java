@@ -34,10 +34,10 @@ public class Transfer {
 	private BigDecimal value;
 	
 	@Column(name = "TRANSFER_DATE")
-	private Calendar transferDate = Calendar.getInstance();
+	private Calendar transferDate;
 	
-	@Column(name = "SCHEDULING_DATE")
-	private Calendar schedulingDate;
+	@Column(name = "SCHEDULED_DATE")
+	private Calendar scheduleDate = Calendar.getInstance();
 	
 	@Column(name = "OPERATION_TYPE")
 	private OperationType operationType;
@@ -90,12 +90,12 @@ public class Transfer {
 		this.transferDate = transferDate;
 	}
 
-	public Calendar getSchedulingDate() {
-		return schedulingDate;
+	public Calendar getScheduleDate() {
+		return scheduleDate;
 	}
 
-	public void setSchedulingDate(Calendar schedulingDate) {
-		this.schedulingDate = schedulingDate;
+	public void setScheduleDate(Calendar scheduleDate) {
+		this.scheduleDate = scheduleDate;
 	}
 
 	public OperationType getOperationType() {
@@ -108,7 +108,7 @@ public class Transfer {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(fromAccount, id, operationType, schedulingDate, taxes, toAccount, transferDate, value);
+		return Objects.hash(fromAccount, id, operationType, scheduleDate, taxes, toAccount, transferDate, value);
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class Transfer {
 			return false;
 		Transfer other = (Transfer) obj;
 		return Objects.equals(fromAccount, other.fromAccount) && id == other.id && operationType == other.operationType
-				&& Objects.equals(schedulingDate, other.schedulingDate) && Objects.equals(taxes, other.taxes)
+				&& Objects.equals(scheduleDate, other.scheduleDate) && Objects.equals(taxes, other.taxes)
 				&& Objects.equals(toAccount, other.toAccount) && Objects.equals(transferDate, other.transferDate)
 				&& Objects.equals(value, other.value);
 	}
@@ -129,7 +129,7 @@ public class Transfer {
 	@Override
 	public String toString() {
 		return "Transfer [id=" + id + ", fromAccount=" + fromAccount + ", toAccount=" + toAccount + ", taxes=" + taxes
-				+ ", value=" + value + ", transferDate=" + transferDate + ", schedulingDate=" + schedulingDate
+				+ ", value=" + value + ", transferDate=" + transferDate + ", schedulingDate=" + scheduleDate
 				+ ", operationType=" + operationType + "]";
 	}
 

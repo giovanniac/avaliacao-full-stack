@@ -36,6 +36,17 @@ public class TransferController {
 		}
 	}
 	
+	@PostMapping("/cotate")
+	public ResponseEntity<?> getCotation(@RequestBody SaveTransferVO transfer) {
+		try {
+			return new ResponseEntity<>(service.cotate(transferMapper.fromSendTransferVO(transfer)), HttpStatus.OK);
+		} catch (InvalidInputException e) {
+			return new ResponseEntity<>(e.getCustomMessage(), HttpStatus.BAD_REQUEST);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
 	@GetMapping
 	public ResponseEntity<?> getAll() {
 		try {

@@ -2,6 +2,8 @@ package com.tokiomarine.financial.service.transfer.impl;
 
 import static java.math.BigDecimal.ZERO;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,10 @@ public class TransferServiceImpl implements TransferService {
 	public void save(Transfer transfer, String operationType) throws InvalidInputException {
 		OperationType operationTypeEnum = OperationType.forName(operationType);
 		
-		validateTransfer(transfer, operationTypeEnum);
+		if (operationTypeEnum == null)
+			throw new InvalidInputException("Invalid operation type");
+		
+		validateTransfer(transfer);
 		
 		transfer.setOperationType(operationTypeEnum);
 		transfer.setTaxes(operationTaxFacade.calculateOperationTax(transfer));
@@ -35,14 +40,22 @@ public class TransferServiceImpl implements TransferService {
 	}
 	
 	@Override
+	public HashMap<String, BigDecimal> cotate(Transfer transfer) throws InvalidInputException {		
+		validateTransfer(transfer);
+		HashMap<String, BigDecimal> cotations = new HashMap<>();
+		for (OperationType operation : OperationType.values()) {
+			transfer.setOperationType(operation);
+			cotations.put(operation.getCode(), operationTaxFacade.calculateOperationTax(transfer));	
+		}
+		return cotations;
+	}
+	
+	@Override
 	public List<Transfer> getAll() {
 		return repository.findAll();
 	}
 	
-	private void validateTransfer(Transfer transfer, OperationType operationTypeEnum) throws InvalidInputException {
-		if (operationTypeEnum == null)
-			throw new InvalidInputException("Invalid operation type");
-		
+	private void validateTransfer(Transfer transfer) throws InvalidInputException {
 		if (transfer.getFromAccount() == null)
 			throw new InvalidInputException("Invalid origin account");
 		

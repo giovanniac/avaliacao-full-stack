@@ -11,7 +11,7 @@ public class TransferMapper {
 	public Transfer fromSendTransferVO(SaveTransferVO sendTransferVO) {
 		Transfer transfer = new Transfer();
 		transfer.setFromAccount(sendTransferVO.getFromAccount());
-		transfer.setSchedulingDate(sendTransferVO.getSchedulingDate());
+		transfer.setTransferDate(sendTransferVO.getTransferDate());
 		transfer.setToAccount(sendTransferVO.getToAccount());
 		transfer.setValue(sendTransferVO.getValue());
 		return transfer;

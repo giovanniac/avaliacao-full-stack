@@ -1,5 +1,7 @@
 package com.tokiomarine.financial.facade;
 
+import static com.tokiomarine.financial.utils.CalendarUtils.getCalendarOnlyDate;
+
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
@@ -20,13 +22,16 @@ public class OperationTaxFacade {
 	
 	public BigDecimal calculateOperationTax(Transfer transfer) throws InvalidInputException {	
 		BigDecimal value = transfer.getValue();
-		Calendar scheduledDate = transfer.getSchedulingDate();
-		Calendar transferDate = transfer.getTransferDate();
+		
+		Calendar transferDate = getCalendarOnlyDate(transfer.getTransferDate());
+		Calendar currentDate = getCalendarOnlyDate(transfer.getScheduleDate());
+		currentDate.setTimeZone(transferDate.getTimeZone());
+		
 		OperationType operationType = transfer.getOperationType();
 		
 		for (OperationTaxHandler taxRule : taxRules) {
 			if (taxRule.canHandle(operationType)) {
-				return taxRule.calculateTax(value, scheduledDate, transferDate);
+				return taxRule.calculateTax(value, transferDate, currentDate);
 			}			
 		}
 		

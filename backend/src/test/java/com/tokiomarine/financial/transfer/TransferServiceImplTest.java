@@ -36,7 +36,6 @@ public class TransferServiceImplTest {
 
 			Transfer transfer = new Transfer();
 			transfer.setValue(BigDecimal.valueOf(100));
-			transfer.setSchedulingDate(schedulingDate);
 			transfer.setTransferDate(transferDate);
 			transfer.setFromAccount("12312");
 			transfer.setToAccount("12312");
@@ -53,7 +52,6 @@ public class TransferServiceImplTest {
 
 			Transfer transfer = new Transfer();
 			transfer.setValue(BigDecimal.ZERO);
-			transfer.setSchedulingDate(schedulingDate);
 			transfer.setTransferDate(transferDate);
 			transfer.setFromAccount("12312");
 			transfer.setToAccount("12312");
@@ -70,7 +68,6 @@ public class TransferServiceImplTest {
 			Transfer transfer = new Transfer();
 			transfer.setValue(BigDecimal.valueOf(100));
 			transfer.setTransferDate(null);
-			transfer.setSchedulingDate(schedulingDate);
 			transfer.setFromAccount("12312");
 			transfer.setToAccount("12312");
 
@@ -86,7 +83,6 @@ public class TransferServiceImplTest {
 
 			Transfer transfer = new Transfer();
 			transfer.setValue(BigDecimal.valueOf(100));
-			transfer.setSchedulingDate(schedulingDate);
 			transfer.setTransferDate(transferDate);
 			transfer.setFromAccount("12312");
 			transfer.setToAccount(null);
@@ -103,7 +99,6 @@ public class TransferServiceImplTest {
 
 			Transfer transfer = new Transfer();
 			transfer.setValue(BigDecimal.valueOf(100));
-			transfer.setSchedulingDate(schedulingDate);
 			transfer.setTransferDate(transferDate);
 			transfer.setFromAccount(null);
 			transfer.setToAccount("12312");
