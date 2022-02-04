@@ -121,7 +121,7 @@ export default {
       // const transferDate = new Date(model.transferDate)
       validations.fromAccount = model.fromAccount.length < 6
       validations.toAccount = model.toAccount.length < 6
-      validations.value = model.value <= 0
+      validations.value = parseFloat(model.value) <= 0
       validations.transferDate = model.transferDate.length <= 0 // TODO: Validação de data  "|| transferDate < today" não funcionou como deveria
       return !!Object.keys(validations).find((key) => { return validations[key] === true })
     }
