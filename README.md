@@ -1,17 +1,22 @@
 ## Descrição do Projeto
 O projeto utiliza Vue (Vuex, VueRouter) e Axios no frontend e Spring Boot, Spring Data e banco de dados H2.
 
-Para iniciar o Backend, importe o projeto (Maven) utilizando seu IDE preferido.
+Inicie o backend primeiro. Para isso, importe o projeto (Maven) utilizando seu IDE preferido.
 Para iniciar o Frontend, utilize o seguinte código no terminal:
 
     cd ./frontend
     npm run server
 
+Assim, provavelmente estarão expostos nos seguintes endereços:
+
+ - **Backend** -> localhost:8080
+ - **Frontend** -> localhost:8081 (automático)
 ## Detalhes do Backend
-O backend, feito utilizando Spring Boot, aplica uma arquitetura em três camadas (Controller, Service e Repository) e expõe as seguintes rotas:
+O backend foi desenvolvido aplicando uma arquitetura em três camadas (Controller, Service e Repository) e expõe as seguintes rotas:
 
  - **GET** *"/transfer"* -> Busca todas as transferência
- -  **POST** *"/transfer"* -> Realiza uma nova transferência
+ - **POST** *"/transfer"* -> Realiza uma nova transferência
+ - **POST** *"/transfer/cotate"* -> Itera sobre todos os tipos de operação e calcula as taxas
 
 Para aplicar as regras de taxação, foi utilizado uma estrutura inspirada no design pattern [*Chain of Responsability*](https://refactoring.guru/pt-br/design-patterns/chain-of-responsibility), onde classes implementam a interface nomeada *OperationTaxHandler* e os dois métodos:
 
@@ -27,5 +32,20 @@ Foi criado um **SaveTransferVO** e um **TransferMapper** (manual), utilizados no
 Foi criada uma **Exception** personalizada chamada **InvalidInputException**, utilizada para sinalizar que algum valor utilizado pelo usuário nas requisições não é válido.
 
 Não foi utilizado **Lombok**.
+
+Não foi criada estrutura de Usuário e segurança (Spring Security e sessions)
+
+## Detalhes do Frontend
+Foi utilizado um plugin (v-mask) para máscara de valores.
+
+Foi construído componentes próprios, assim como os métodos de validação.
+
+Toda chamada para API é feita na store, utilizando Vuex, assim como a recuperação de dados.
+
+
+
+
+
+
 
 
