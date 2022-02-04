@@ -1,32 +1,22 @@
 <template>
   <div class="container">
-    {{label}}
+    {{label}} (R$)
     <input
-      :type="type"
       class="custom-input"
-      @input="onInputChange($event.target.value)"
       :value="value"
-      v-money="money"
+      @input="onInputChange($event.target.value)"
+      :class="{ 'invalid': isInvalid }"
+      type="number"
     />
+    <span :class="{ 'invalid-message': isInvalid, 'hide-message': !isInvalid }">
+      {{validationMessage}}
+    </span>
   </div>
 </template>
 
 <script>
-import { VMoney } from 'v-money'
-
 export default {
   name: 'MoneyInput',
-  data: () => {
-    return {
-      money: {
-        decimal: ',',
-        thousands: '.',
-        prefix: 'R$ ',
-        precision: 2,
-        masked: false
-      }
-    }
-  },
   props: {
     value: {
       type: String,
@@ -36,12 +26,12 @@ export default {
       type: String,
       required: true
     },
-    mask: {
-      type: String,
-      required: false,
-      default: ''
+    isInvalid: {
+      type: Boolean,
+      required: true,
+      default: true
     },
-    type: {
+    validationMessage: {
       type: String,
       required: false,
       default: ''
@@ -51,8 +41,7 @@ export default {
     onInputChange (inputValue) {
       this.$emit('input', inputValue)
     }
-  },
-  directives: { money: VMoney }
+  }
 }
 </script>
 
@@ -77,5 +66,26 @@ export default {
     align-items: left;
     font-size: 14px;
     color: #525252;
+}
+.invalid {
+  border: 2px solid red;
+  border-radius: 5px;
+}
+.invalid-message {
+  font-size: 10px;
+  color: red;
+}
+.hide-message {
+  display: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }
 </style>

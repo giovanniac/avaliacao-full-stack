@@ -12,7 +12,7 @@
         <td
           v-for="(value, name, index) in headers" :key="index"
         >
-          {{datasetItem[name]}}
+          {{ formatData(name, datasetItem[name])}}
         </td>
       </tr>
     </tbody>
@@ -24,12 +24,21 @@ export default {
   name: 'Table',
   props: {
     headers: {
-      label: Array,
+      label: Object,
+      required: true
+    },
+    formatters: {
+      label: Object,
       required: true
     },
     dataset: {
       label: Array,
       required: true
+    }
+  },
+  methods: {
+    formatData (key, data) {
+      return typeof this.formatters[key] === 'function' ? this.formatters[key](data) : data
     }
   }
 }

@@ -7,25 +7,32 @@
         label="Conta Origem"
         mask="######"
         v-model="model.fromAccount"
+        :isInvalid="validations.fromAccount"
+        validationMessage="Conta de origem inválida"
       />
       <Input
         class="fullsize-row"
         label="Conta Destino"
-        type="number"
+        type="text"
         mask="######"
         v-model="model.toAccount"
+        :isInvalid="validations.toAccount"
+        validationMessage="Conta destino inválida"
       />
       <MoneyInput
         class="fullsize-row"
         label="Valor"
-        type="text"
         v-model="model.value"
+        :isInvalid="validations.value"
+        validationMessage="Valor inválido"
       />
       <Input
         class="fullsize-row"
         label="Data"
-        type="date"
+        type="datetime-local"
         v-model="model.transferDate"
+        :isInvalid="validations.transferDate"
+        validationMessage="Data inválida"
       />
       <Select
         class="fullsize-row"
@@ -33,10 +40,7 @@
         :options="operations"
         v-model="model.operationType"
       />
-      <div class="row">
-        <Button label="Cotar" @click="getCotation"/>
-        <Button label="Enviar" @click="sendTransfer"/>
-      </div>
+      <Button class="fullsize-row" label="Enviar" @click="sendTransfer"/>
     </Card>
   </div>
 </template>
@@ -59,7 +63,13 @@ export default {
         transferDate: '',
         operationType: 'A'
       },
-      cotation: {},
+      validations: {
+        fromAccount: false,
+        toAccount: false,
+        value: false,
+        transferDate: false,
+        operationType: false
+      },
       operations: [
         {
           name: 'A',
@@ -89,18 +99,32 @@ export default {
   },
   methods: {
     async sendTransfer () {
+      console.log(this.validate(this.model))
+      if (this.validate(this.model)) {
+        return
+      }
       await this.$store.dispatch('Transfer/sendTransfer', this.model)
       this.model = {
         fromAccount: '',
         toAccount: '',
         value: '',
-        scheduleDate: '',
+        transferDate: '',
         operationType: 'A'
       }
     },
     async getCotation () {
       await this.$store.dispatch('Transfer/getCotation', this.model)
       this.cotation = this.$store.getters['Transfer/getCotation']
+    },
+    validate (model) {
+      const validations = this.validations
+      const today = new Date()
+      const transferDate = new Date(model.transferDate)
+      validations.fromAccount = model.fromAccount.length < 6
+      validations.toAccount = model.toAccount.length < 6
+      validations.value = model.value <= 0
+      validations.transferDate = model.transferDate.length <= 0 || transferDate < today // TODO: Desbugar
+      return !!Object.keys(validations).find((key) => { return validations[key] === true })
     }
   }
 }

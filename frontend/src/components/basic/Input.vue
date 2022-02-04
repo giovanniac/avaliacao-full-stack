@@ -4,10 +4,14 @@
     <input
       :type="type"
       class="custom-input"
+      :class="{ 'invalid': isInvalid }"
       @input="onInputChange($event.target.value)"
       v-mask="mask"
       :value="value"
     />
+    <span :class="{ 'invalid-message': isInvalid, 'hide-message': !isInvalid }">
+      {{validationMessage}}
+    </span>
   </div>
 </template>
 
@@ -29,6 +33,16 @@ export default {
       default: ''
     },
     type: {
+      type: String,
+      required: false,
+      default: ''
+    },
+    isInvalid: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    validationMessage: {
       type: String,
       required: false,
       default: ''
@@ -63,5 +77,16 @@ export default {
     align-items: left;
     font-size: 14px;
     color: #525252;
+}
+.invalid {
+  border: 2px solid red;
+  border-radius: 5px;
+}
+.invalid-message {
+  font-size: 10px;
+  color: red;
+}
+.hide-message {
+  display: none;
 }
 </style>
