@@ -99,7 +99,6 @@ export default {
   },
   methods: {
     async sendTransfer () {
-      console.log(this.validate(this.model))
       if (this.validate(this.model)) {
         return
       }

@@ -27,7 +27,6 @@ const actions = {
   sendTransfer (context, payload) {
     api
       .post('/transfer', payload)
-      .then(() => { console.log('Transferencia') })
       .catch((error) => { console.log(error) })
   },
   getTransfers (context, payload) {
