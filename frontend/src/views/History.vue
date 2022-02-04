@@ -10,6 +10,9 @@
 import Table from '@/components/Table.vue'
 import { mapGetters } from 'vuex'
 
+const formatValueToReais = (value) => parseFloat(value).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' })
+const formatDate = (date) => new Date(date).toLocaleDateString()
+
 export default {
   name: 'History',
   data: () => {
@@ -25,10 +28,10 @@ export default {
         operationType: 'Tipo de Operação'
       },
       formatters: {
-        taxes: (value) => parseFloat(value).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }),
-        value: (value) => parseFloat(value).toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }),
-        scheduleDate: (date) => new Date(date).toLocaleDateString(),
-        transferDate: (date) => new Date(date).toLocaleDateString()
+        taxes: formatValueToReais,
+        value: formatValueToReais,
+        scheduleDate: formatDate,
+        transferDate: formatDate
       }
     }
   },
