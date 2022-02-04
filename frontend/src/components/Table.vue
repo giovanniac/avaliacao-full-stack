@@ -44,7 +44,7 @@ export default {
 }
 </script>
 
-<style scope>
+<style>
 table {
   width: 100%;
   border-spacing: 0;
