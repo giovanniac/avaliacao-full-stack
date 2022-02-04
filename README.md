@@ -1,5 +1,5 @@
 ## Descrição do Projeto
-O projeto utiliza Vue (Vuex, VueRouter) e Axios no frontend e Spring Boot, Spring Data e banco de dados H2.
+O projeto utiliza Vue 2, Vuex, VueRouter e Axios no frontend e Java 11, Spring Boot, Spring Data e banco de dados H2 no backend.
 
 Inicie o backend primeiro. Para isso, importe o projeto (Maven) utilizando seu IDE preferido.
 Para iniciar o Frontend, utilize o seguinte código no terminal:
@@ -23,7 +23,7 @@ Para aplicar as regras de taxação, foi utilizado uma estrutura inspirada no de
  - **canHandle**, utilizado para indicar que a classe sabe lidar com algum tipo de operação
  - **calculateTax**, onde é implementado o cálculo da taxa.
 
-Esta estrutura é exposta via um *facade* chamado **OperationTaxFacade**, que possuí somente o método **calculateOperationTax**.  Isso facilita a criação de novos tipos de operação e cálculos de taxa respectivos, enquanto o facade esconde detalhes da implementação de quem utiliza esta estrutura.
+Esta estrutura é exposta via um *facade* chamado **OperationTaxFacade**, que possuí somente o método **calculateOperationTax**.  Isso facilita a criação de novos tipos de operação e cálculos de taxa respectivos, enquanto o facade esconde detalhes da implementação de quem utiliza esta estrutura. Também desacopla a regra de negócio.
 
 Foi criado um **CalendarUtils** com um método que facilita lidar com adição de datas.
 
